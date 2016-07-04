@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+$msgid=msgget(20,0100666);
+print 'input type->';
+$type=<STDIN>;
+chomp $type;
+for(;;){
+	print '->';
+	$input=<STDIN>;
+	chomp $input;
+	$msg=pack('La*',$type,$input);
+	msgsnd($msgid,$msg,0100666)||die "erro";
+}

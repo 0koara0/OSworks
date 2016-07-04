@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+$msghead=0;
+for(;;){
+	print '->';
+	$input=<STDIN>;
+	chomp $input;
+	shmwrite($shmid,$input,$msghead,100);
+	($input eq 'quit')&&(last);
+	$msghead=$msghead+100;
+}

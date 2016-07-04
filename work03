@@ -1,0 +1,1 @@
+grep -a [0-9][0-9][0-9]$1 KEN_ALL_ROME.CSV | grep -a $2 |nkf -w

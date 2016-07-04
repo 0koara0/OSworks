@@ -1,0 +1,4 @@
+#!/usr/bin/perl
+
+$msgid=msgget(20,0100666);
+msgctl($msgid,0,undef);

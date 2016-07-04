@@ -1,0 +1,4 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+shmctl($shmid,0,undef);

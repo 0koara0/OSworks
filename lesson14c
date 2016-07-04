@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+$msgid=msgget(20,0100666);
+for(;;){
+	print 'input type->';
+	$type=<STDIN>;
+	msgrcv($msgid,$msg,72,$type,0100666)||die "erro";
+	@ans=unpack('La*',$msg);
+	print "$ans[1]\n";
+}

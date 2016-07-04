@@ -1,0 +1,18 @@
+#! /usr/bin/perl
+
+$that=pack('SnC4x8',2,5555,127,0,0,1);
+$this=pack('SnC4x8',2,0,127,0,0,1);
+socket(SOCKET,2,2,0)||die "erro\n";
+bind(SOCKET,$this)||die "erro\n";
+select(SOCKET);$|=1;select(STDOUT);
+
+for(;;){
+print STDOUT '->';
+	$input=<STDIN>;
+	chomp $input;
+	($input eq 'quit')&&(last);
+	send(SOCKET,$input,0,$that);
+	recv(SOCKET,$output,72,0);
+	print STDOUT "$output\n";
+}
+close(SOCKET);

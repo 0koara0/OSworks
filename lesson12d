@@ -1,0 +1,22 @@
+#! /usr/bin/perl
+$file='/home/koara/bin/table.csv';
+open(READ,"$file");
+while(<READ>){
+	chomp $_;
+	@line=split(/,/,$_,2);
+	$table{$line[0]}=$line[1];
+}
+close(READ);
+print "Loaded..\n";
+
+$this=pack('SnC4x8',2,5555,127,0,0,1);
+socket(SOCKET,2,2,0)||die "erro\n";
+bind(SOCKET,$this)||die "erro\n";
+select(SOCKET);$|=1;select(STDOUT);
+
+for(;;){
+	$your=recv(SOCKET,$input,72,0);
+	chomp $input;
+	$output=$table{$input};
+	send(SOCKET,$output,0,$your);
+}

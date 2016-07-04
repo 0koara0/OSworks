@@ -1,0 +1,1 @@
+grep -a [0-9][0-9][0-9]0001 KEN_ALL_ROME.CSV | grep -a $1 |wc

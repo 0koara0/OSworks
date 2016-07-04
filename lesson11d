@@ -1,0 +1,14 @@
+#! /usr/bin/perl
+
+$this=pack('SnC4x8',2,5555,127,0,0,1);
+socket(SOCKET,2,2,0)||die "erro\n";
+bind(SOCKET,$this) ||die "erro\n";
+select(SOCKET);$|=1;select(STDOUT);
+
+for(;;){
+	$your=recv(SOCKET,$input,72,0);
+	chomp $input;
+	print STDOUT "$input\n";
+	$output='Hello World';
+	send(SOCKET,$output,0,$your);
+}
