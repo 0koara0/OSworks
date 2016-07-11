@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+$prime=29989;
+$size=30000;
+for(;;)
+{
+	print 'input zip code->';
+	$input=<STDIN>;
+	chomp $input;
+	$flag=0;
+	$area=substr($input,0,1);
+	foreach $i(0..$prime)
+	{
+		$add=( ($area*$size)+(($input+$i)%$prime) )*100;
+		shmread($shmid,$zip,$add,7);
+		($input eq $zip)&&($flag=1)&&(last);
+	}
+	if($flag==0)
+	{
+		print "not found¥n";
+	}
+	else
+	{
+		$head=$add+7;
+		shmread($shmid,$address,$head,93);
+		print "$address¥n";
+	}
+}

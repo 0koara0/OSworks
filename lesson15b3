@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+$size=24000;
+$point=(0,0,0,0,0,0,0,0,0,0);
+open(READ,"bin/table.csv");
+while(<READ>)
+{
+	$line=$_;
+	chomp $line;
+	@line=split(/,/,$line,2);
+	$data=$line[0].$line[1];
+	$area=substr($line[0],0,1);
+	$add=( $area*$size+$point[$area] )*100;
+	shmwrite($shmid,$data,$add,100);
+	$point[$area]++;
+}
+close(READ);

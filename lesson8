@@ -2,6 +2,7 @@
 
 #lesson6を改造
 $SIG{'CLD'} = 'killzombi';
+$SIG{'INT'}='sighello';
 $file='/home/koara/bin/table.csv';
 open(READ,"$file");
 for(;;){
@@ -22,4 +23,9 @@ close(READ);
 
 sub killzombi{
 	wait;
+}
+
+sub sighello
+{
+	print "hello\n";
 }

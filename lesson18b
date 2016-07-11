@@ -1,0 +1,8 @@
+cl#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+foreach$i(0..9999)
+{
+	shmread($shmid,$data,0,71);
+}
+print $data;

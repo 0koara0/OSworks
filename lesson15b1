@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+$i=0;
+open(READ,"bin/table.csv");
+while(<READ>)
+{
+	$line=$_;
+	chomp $line;
+	@line=split(/,/,$line,2);
+	$data=$line[0].$line[1];
+	$msghead=100*$i;
+	shmwrite($shmid,$data,$msghead,100);
+	$i++;
+}
+close(READ);

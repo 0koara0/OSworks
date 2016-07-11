@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,undef,0100666);
+$prime=29989;
+$size=30000;
+open(READ,"bin/table.csv");
+while(<READ>)
+{
+	$line=$_;
+	chomp $line;
+	@line=split(/,/,$line,2);
+	$data=$line[0].$line[1];
+	$area=substr($line[0],0,1);
+	foreach $i(0..$prime)
+	{
+		$add=( ($area*$size)+(($line[0]+$i)%$prime) )*100;
+		shmread($shmid,$zip,$add,7);
+		($zip=~m/¥d+/)||(last);
+	}
+	shmwrite($shmid,$data,$add,100);
+}
+close(READ);

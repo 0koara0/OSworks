@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+
+$shmid=shmget(20,72,0001666);
+$data="14X3017";
+shmwrite($shmid,$data,0,71);
